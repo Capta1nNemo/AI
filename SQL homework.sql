@@ -13,13 +13,10 @@ or last_name like '%ary%';
 with cte as (select * from payment order by amount desc limit 20)
 select * from cte
 
--- адреса магазинов из запроса выше через staff_id и таблицу store
+-- адреса магазинов из запроса выше через staff_id и таблицу store (подзапрос)
 with cte as (select * from payment order by amount desc limit 20)
 select address from address where address_id in(
 select address_id from store inner join cte on cte.staff_id = store.manager_staff_id);
-
--- Вывести адреса всех магазинов (подзапрос)
-select distinct address from address;
 
 /* Вывести число, месяц и день недели в числовом эквиваленте 
 (Понедельник - 1, Вторник - 2..) для каждой оплаты */
